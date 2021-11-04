@@ -1,7 +1,8 @@
 <?php
+$url = $argv[1] ?: "https://www.php.net/manual/en/pdo.drivers.php";
 include_once ("simple_html_dom.php");
 header('Content-Type: application/json');
-$html = file_get_html('https://www.php.net/manual/en/pdo.drivers.php');
+$html = file_get_html($url);
 $arr_type=["img"=>"src", "a"=>"href", "script"=>"src", "link"=>"href"];
 foreach ($arr_type as $key=>$item){
     foreach($html->find($key) as $element){
@@ -9,7 +10,7 @@ foreach ($arr_type as $key=>$item){
         $tags[$key][]= $element->$item;
     }
 }
-echo json_encode($tags)."\n";
+var_dump( json_encode($tags, JSON_UNESCAPED_SLASHES)."\n");
 
 
 
